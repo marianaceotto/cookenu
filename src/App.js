@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
+import { GlobalStyle } from "./GlobalStyled"
 import Router from "../src/routes/Router"
+import { GlobalContext } from './contexts/GlobalContext'
 
 
 const App = () => {
+  const [ isAuth, setIsAuth ] = useState(false)
+
+  useEffect(() => {
+      const token = window.localStorage.getItem("cookenu-token")
+
+      if (token) {
+          setIsAuth(true)
+      }
+  }, [])
+
+  const context = {
+      isAuth: isAuth,
+      setIsAuth: setIsAuth
+  }
+
   return (
-    <>
-    <ChakraProvider>
-        <Router/>
-    </ChakraProvider>
-      
-    </>
+      <GlobalContext.Provider value={context}>
+          <ChakraProvider>
+              <GlobalStyle />
+              <Router />
+          </ChakraProvider>
+      </GlobalContext.Provider>
   )
 }
 
 export default App
-
