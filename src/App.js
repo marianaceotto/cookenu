@@ -1,9 +1,18 @@
-function App() {
+import React from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
+import Router from "../src/routes/Router"
+
+
+const App = () => {
   return (
     <>
-      <h1>App</h1>
+    <ChakraProvider>
+        <Router/>
+    </ChakraProvider>
+      
     </>
-  );
+  )
 }
 
-export default App;
+export default App
+
